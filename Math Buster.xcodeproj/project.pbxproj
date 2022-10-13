@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -56,15 +56,39 @@
 		0D43BF0928F81AEE0053313D /* Math Buster */ = {
 			isa = PBXGroup;
 			children = (
+				0D43BF1E28F81B100053313D /* App */,
+				0D43BF1F28F81B180053313D /* Controller */,
+				0D43BF2028F81B210053313D /* Resource */,
+			);
+			path = "Math Buster";
+			sourceTree = "<group>";
+		};
+		0D43BF1E28F81B100053313D /* App */ = {
+			isa = PBXGroup;
+			children = (
 				0D43BF0A28F81AEE0053313D /* AppDelegate.swift */,
 				0D43BF0C28F81AEE0053313D /* SceneDelegate.swift */,
-				0D43BF0E28F81AEE0053313D /* ViewController.swift */,
-				0D43BF1028F81AEE0053313D /* Main.storyboard */,
-				0D43BF1328F81AEF0053313D /* Assets.xcassets */,
 				0D43BF1528F81AEF0053313D /* LaunchScreen.storyboard */,
 				0D43BF1828F81AEF0053313D /* Info.plist */,
 			);
-			path = "Math Buster";
+			path = App;
+			sourceTree = "<group>";
+		};
+		0D43BF1F28F81B180053313D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0D43BF0E28F81AEE0053313D /* ViewController.swift */,
+				0D43BF1028F81AEE0053313D /* Main.storyboard */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0D43BF2028F81B210053313D /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				0D43BF1328F81AEF0053313D /* Assets.xcassets */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -103,7 +127,7 @@
 				};
 			};
 			buildConfigurationList = 0D43BF0228F81AEE0053313D /* Build configuration list for PBXProject "Math Buster" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -288,12 +312,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Math Buster/Info.plist";
+				INFOPLIST_FILE = "Math Buster/App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -315,12 +340,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Math Buster/Info.plist";
+				INFOPLIST_FILE = "Math Buster/App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
