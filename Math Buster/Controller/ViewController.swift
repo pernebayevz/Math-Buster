@@ -17,11 +17,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultField: UITextField!
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var restartButton: UIButton!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     
     var timer: Timer?
     var countDown: Int = 30
     var result: Double?
     var score: Int = 0
+    var ranges = [0...9, 10...99, 100...999]
+    var scoreAmount = [1, 2, 3]
+    
+    var navigationBarPreviousTintColor: UIColor?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,25 +36,43 @@ class ViewController: UIViewController {
         generateProblem()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationBarPreviousTintColor = navigationController?.navigationBar.tintColor
+        navigationController?.navigationBar.tintColor = .white
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         scheduleTimer()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.navigationBar.tintColor = navigationBarPreviousTintColor
+    }
 
     func setupUI() {
+//        navigationItem.title = "New Title"
         timerContainerView.layer.cornerRadius = 5
         resultField.keyboardType = .decimalPad
     }
     
     func generateProblem() {
-        let firstDigit = Int.random(in: 0...9)
+        
+        let selectedIndex: Int = segmentedControl.selectedSegmentIndex
+        let range = ranges[selectedIndex]
+        
+        let firstDigit = Int.random(in: range)
         let arithmeticOperator: String = ["+", "-", "x", "/"].randomElement()!
         
-        var startingInteger: Int = 0
-        var endingInteger: Int = 9
+        var startingInteger: Int = range.lowerBound
+        var endingInteger: Int = range.upperBound
         
-        if arithmeticOperator == "/" {
+        if arithmeticOperator == "/" && startingInteger == 0 {
             startingInteger = 1
         }else if arithmeticOperator == "-" {
             endingInteger = firstDigit
@@ -74,7 +97,7 @@ class ViewController: UIViewController {
     }
     
     func scheduleTimer() {
-        countDown = 12
+        countDown = 30
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimerUI), userInfo: nil, repeats: true)
     }
@@ -83,7 +106,7 @@ class ViewController: UIViewController {
     func updateTimerUI() {
         countDown -= 1
         
-        var seconds: String = String(format: "%02d", countDown)
+        let seconds: String = String(format: "%02d", countDown)
         
 //        if countDown < 10 {
 //            seconds = "0\(countDown)"
@@ -116,7 +139,8 @@ class ViewController: UIViewController {
         
         if newResult == result {
             print("Correct answer!")
-            score += 1
+            let selectedIndex = segmentedControl.selectedSegmentIndex
+            score += scoreAmount[selectedIndex]
             scoreLabel.text = "Score: \(score)"
         }else{
             print("Incorrect answer!")
@@ -127,6 +151,10 @@ class ViewController: UIViewController {
     }
     
     @IBAction func restartPressed(_ sender: Any) {
+        restart()
+    }
+    
+    func restart() {
         score = 0
         scoreLabel.text = "Score: 0"
         
@@ -138,5 +166,8 @@ class ViewController: UIViewController {
         submitButton.isEnabled = true
     }
     
+    @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+        restart()
+    }
 }
 
