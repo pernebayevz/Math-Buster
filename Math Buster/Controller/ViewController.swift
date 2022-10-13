@@ -39,13 +39,23 @@ class ViewController: UIViewController {
 
     func setupUI() {
         timerContainerView.layer.cornerRadius = 5
-        resultField.keyboardType = .default
+        resultField.keyboardType = .decimalPad
     }
     
     func generateProblem() {
         let firstDigit = Int.random(in: 0...9)
-        let secondDigit = Int.random(in: 0...9)
         let arithmeticOperator: String = ["+", "-", "x", "/"].randomElement()!
+        
+        var startingInteger: Int = 0
+        var endingInteger: Int = 9
+        
+        if arithmeticOperator == "/" {
+            startingInteger = 1
+        }else if arithmeticOperator == "-" {
+            endingInteger = firstDigit
+        }
+        
+        let secondDigit = Int.random(in: startingInteger...endingInteger)
         
         problemLabel.text = "\(firstDigit) \(arithmeticOperator) \(secondDigit) ="
         
@@ -64,7 +74,7 @@ class ViewController: UIViewController {
     }
     
     func scheduleTimer() {
-        countDown = 30
+        countDown = 12
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimerUI), userInfo: nil, repeats: true)
     }
@@ -73,7 +83,13 @@ class ViewController: UIViewController {
     func updateTimerUI() {
         countDown -= 1
         
-        timerLabel.text = "00 : \(countDown)"
+        var seconds: String = String(format: "%02d", countDown)
+        
+//        if countDown < 10 {
+//            seconds = "0\(countDown)"
+//        }
+        
+        timerLabel.text = "00 : \(seconds)"
         progressView.progress = Float(30 - countDown) / 30
         print("progressView.progress: \(progressView.progress)")
         
