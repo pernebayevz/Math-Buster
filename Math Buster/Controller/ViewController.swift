@@ -97,7 +97,7 @@ class ViewController: UIViewController {
     }
     
     func scheduleTimer() {
-        countDown = 30
+        countDown = 2
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateTimerUI), userInfo: nil, repeats: true)
     }
@@ -117,9 +117,7 @@ class ViewController: UIViewController {
         print("progressView.progress: \(progressView.progress)")
         
         if countDown <= 0 {
-            timer?.invalidate()
-            resultField.isEnabled = false
-            submitButton.isEnabled = false
+            finishTheGame()
         }
     }
     
@@ -168,6 +166,44 @@ class ViewController: UIViewController {
     
     @IBAction func segmentedControlValueChanged(_ sender: UISegmentedControl) {
         restart()
+    }
+    
+    func finishTheGame() {
+        timer?.invalidate()
+        resultField.isEnabled = false
+        submitButton.isEnabled = false
+        
+        askForName()
+    }
+    
+    func askForName() {
+        let alertController = UIAlertController(title: "Game is Over!", message: "Save your score: \(score)", preferredStyle: .alert)
+        alertController.addTextField { textField in
+            textField.placeholder = "Enter your name"
+        }
+        
+        let saveAction = UIAlertAction(title: "Save", style: .default) { _ in
+            guard let textField = alertController.textFields?.first else {
+                print("Textfield is absent")
+                return
+            }
+            guard let text = textField.text, !text.isEmpty else {
+                print("Text is nil or empty")
+                return
+            }
+            print("Name: \(text)")
+            
+            //TO DO: Save user score record permanently on device
+        }
+        alertController.addAction(saveAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alertController.addAction(cancelAction)
+        
+//        let skipAction = UIAlertAction(title: "Skip", style: .destructive)
+//        alertController.addAction(skipAction)
+        
+        present(alertController, animated: true)
     }
 }
 
