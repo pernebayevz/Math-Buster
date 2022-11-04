@@ -12,12 +12,25 @@
         <!--Welcome!-->
         <scene sceneID="7KU-dC-ICE">
             <objects>
-                <viewController id="2Mj-IY-M7e" sceneMemberID="viewController">
+                <viewController id="2Mj-IY-M7e" customClass="WelcomeViewController" customModule="Math_Buster" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Wl7-tz-d7I">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6O9-EJ-63M">
+                                <rect key="frame" x="20" y="111" width="350" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="QKD-ly-qzy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="QKD-ly-qzy" firstAttribute="trailing" secondItem="6O9-EJ-63M" secondAttribute="trailing" constant="20" id="gjj-QY-Eqb"/>
+                            <constraint firstItem="6O9-EJ-63M" firstAttribute="leading" secondItem="QKD-ly-qzy" secondAttribute="leading" constant="20" id="lQa-I5-aUl"/>
+                            <constraint firstItem="6O9-EJ-63M" firstAttribute="top" secondItem="QKD-ly-qzy" secondAttribute="top" constant="20" id="yVN-gF-uce"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Welcome!" id="M08-jQ-P6X">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Kou-TC-lzt">
@@ -32,6 +45,9 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="textLabel" destination="6O9-EJ-63M" id="OcP-Np-vCs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mQ5-kI-SzU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

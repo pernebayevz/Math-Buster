@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D2C49322913F6E7008B3B4E /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D2C49312913F6E7008B3B4E /* WelcomeViewController.swift */; };
 		0D43BF0B28F81AEE0053313D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D43BF0A28F81AEE0053313D /* AppDelegate.swift */; };
 		0D43BF0D28F81AEE0053313D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D43BF0C28F81AEE0053313D /* SceneDelegate.swift */; };
 		0D43BF0F28F81AEE0053313D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D43BF0E28F81AEE0053313D /* ViewController.swift */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D2C49312913F6E7008B3B4E /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		0D43BF0728F81AEE0053313D /* Math Buster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Math Buster.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D43BF0A28F81AEE0053313D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0D43BF0C28F81AEE0053313D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				0D43BF0E28F81AEE0053313D /* ViewController.swift */,
+				0D2C49312913F6E7008B3B4E /* WelcomeViewController.swift */,
 				0D43BF1028F81AEE0053313D /* Main.storyboard */,
 			);
 			path = Controller;
@@ -163,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D43BF0F28F81AEE0053313D /* ViewController.swift in Sources */,
+				0D2C49322913F6E7008B3B4E /* WelcomeViewController.swift in Sources */,
 				0D43BF0B28F81AEE0053313D /* AppDelegate.swift in Sources */,
 				0D43BF0D28F81AEE0053313D /* SceneDelegate.swift in Sources */,
 			);
