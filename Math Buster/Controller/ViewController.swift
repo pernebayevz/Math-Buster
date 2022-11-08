@@ -203,25 +203,43 @@ class ViewController: UIViewController {
     
     func saveUserScoreAsStruct(name: String) {
         let userScore: UserScore = UserScore(name: name, score: dataModel.score)
-        let userScoreArray: [UserScore] = ViewController.getAllUserScores() + [userScore]
+        
+        var level: Level?
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            level = .easy
+        case 1:
+            level = .medium
+        case 2:
+            level = .hard
+        default:
+            ()
+        }
+        
+        guard let level = level else {
+            print("Level is nil because index out of [0,1,2]")
+            return
+        }
+        
+        let userScoreArray: [UserScore] = ViewController.getAllUserScores(level: level) + [userScore]
         
         do {
             
             let encoder = JSONEncoder()
             let encodedData = try encoder.encode(userScoreArray)
             let userDefaults = UserDefaults.standard
-            userDefaults.set(encodedData, forKey: ViewControllerDataModel.userScoreKey)
+            userDefaults.set(encodedData, forKey: level.key())
             
         } catch {
             print("Couldn't encode given [Userscore] into data with error: \(error.localizedDescription)")
         }
     }
     
-    static func getAllUserScores() -> [UserScore] {
+    static func getAllUserScores(level: Level) -> [UserScore] {
         var result: [UserScore] = []
         
         let userDefaults = UserDefaults.standard
-        if let data = userDefaults.object(forKey: ViewControllerDataModel.userScoreKey) as? Data {
+        if let data = userDefaults.object(forKey: level.key()) as? Data {
             
             do {
                 
@@ -270,4 +288,22 @@ struct ViewControllerDataModel {
 struct UserScore: Codable {
     let name: String
     let score: Int
+}
+
+
+enum Level {
+    case easy
+    case medium
+    case hard
+    
+    func key() -> String {
+        switch self {
+        case .easy:
+            return "easyUserScore"
+        case .medium:
+            return "mediumUserScore"
+        case .hard:
+            return "hardUserScore"
+        }
+    }
 }
