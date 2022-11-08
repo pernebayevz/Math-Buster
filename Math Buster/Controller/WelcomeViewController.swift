@@ -11,7 +11,7 @@ class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var userScoreArrayOfDictionaries: [[String: Any]] = [] {
+    var userScoreArrayOfDictionaries: [UserScore] = [] {
         didSet {
             print("Value of variable 'userScoreArrayOfDictionaries' was changed")
             tableView.reloadData()
@@ -38,27 +38,13 @@ class WelcomeViewController: UIViewController {
 
     @objc
     func getUserScore() {
-        let userDefaults = UserDefaults.standard
-        
-        guard let userScore = userDefaults.array(forKey: ViewController.userScoreKey) else {
-            print("Userdefaults doesn't contain array with key : \(ViewController.userScoreKey)")
-            return
-        }
-        guard let userScoreArrayOfDictionaries = userScore as? [[String: Any]] else {
-            print("Couldn't convert Any to [[String: Any]]")
-            return
-        }
-        
         tableView.refreshControl?.endRefreshing()
-        self.userScoreArrayOfDictionaries = userScoreArrayOfDictionaries
+        self.userScoreArrayOfDictionaries = ViewController.getAllUserScores()
     }
     
     func getSingleUserText(index: Int) -> String? {
-        let dictionary: [String: Any] = userScoreArrayOfDictionaries[index]
-        guard let name = dictionary["name"] as? String, let score = dictionary["score"] as? Int else {
-            return nil
-        }
-        let text = "Name: \(name), Score: \(score)"
+        let userScore: UserScore = userScoreArrayOfDictionaries[index]
+        let text = "Name: \(userScore.name), Score: \(userScore.score)"
         return text
     }
 }
