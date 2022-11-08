@@ -7,7 +7,7 @@
 
 import UIKit
 
-class WelcomeViewController: UIViewController, UITableViewDataSource {
+class WelcomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -24,7 +24,10 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
         // Do any additional setup after loading the view.
         tableView.register(UINib(nibName: "ScoreTableViewCell", bundle: nil), forCellReuseIdentifier: ScoreTableViewCell.identifier)
         tableView.dataSource = self
+        tableView.delegate = self
 //        tableView.rowHeight = 60
+        tableView.refreshControl = UIRefreshControl()
+        tableView.refreshControl!.addTarget(self, action: #selector(getUserScore), for: .valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,6 +36,7 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
         getUserScore()
     }
 
+    @objc
     func getUserScore() {
         let userDefaults = UserDefaults.standard
         
@@ -45,21 +49,38 @@ class WelcomeViewController: UIViewController, UITableViewDataSource {
             return
         }
         
+        tableView.refreshControl?.endRefreshing()
         self.userScoreArrayOfDictionaries = userScoreArrayOfDictionaries
     }
     
+    func getSingleUserText(index: Int) -> String? {
+        let dictionary: [String: Any] = userScoreArrayOfDictionaries[index]
+        guard let name = dictionary["name"] as? String, let score = dictionary["score"] as? Int else {
+            return nil
+        }
+        let text = "Name: \(name), Score: \(score)"
+        return text
+    }
+}
+
+//MARK: UITableViewDatasource & UITableViewDelegate
+extension WelcomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return userScoreArrayOfDictionaries.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ScoreTableViewCell.identifier, for: indexPath) as! ScoreTableViewCell
-        
-        let dictionary: [String: Any] = userScoreArrayOfDictionaries[indexPath.row]
-        if let name = dictionary["name"] as? String, let score = dictionary["score"] as? Int {
-            cell.scoreTextLabel.text = "Name: \(name), Score: \(score)"
-        }
-        
+        cell.scoreTextLabel.text = getSingleUserText(index: indexPath.row)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("User selected row: \(indexPath.row)")
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let viewController = ScoreDetailViewController()
+        viewController.text = getSingleUserText(index: indexPath.row)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
